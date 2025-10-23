@@ -1,0 +1,67 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+	<style>
+		.s0 { fill: #663300;stroke: #330000;stroke-miterlimit:10;stroke-width: 20 } 
+		.s1 { fill: #ff6600 } 
+		.s2 { fill: #cc3300 } 
+		.s3 { fill: none;stroke: #330000;stroke-miterlimit:10;stroke-width: 20 } 
+		.s4 { fill: none;stroke: #993300;stroke-miterlimit:10;stroke-width: 20 } 
+		.s5 { fill: #ff6600;stroke: #993300;stroke-miterlimit:10;stroke-width: 20 } 
+		.s6 { fill: #ffcc66 } 
+		.s7 { fill: #ffffcc } 
+		.s8 { fill: none;stroke: #996600;stroke-miterlimit:10;stroke-width: 20 } 
+		.s9 { fill: #ffcc66;stroke: #330000;stroke-miterlimit:10;stroke-width: 20 } 
+		.s10 { fill: #ffffff;stroke: #330000;stroke-miterlimit:10;stroke-width: 0 } 
+		.s11 { fill: #ffffff;stroke: #330000;stroke-miterlimit:10;stroke-width: 20 } 
+		.s12 { fill: #ffcc66;stroke: #cc9933;stroke-miterlimit:10;stroke-width: 20 } 
+		.s13 { fill: none;stroke: #cc9933;stroke-miterlimit:10;stroke-width: 20 } 
+		.s14 { opacity: .7;fill: none;stroke: #ffffcc;stroke-linecap: round;stroke-miterlimit:10;stroke-width: 20 } 
+		.s15 { opacity: .7;fill: none;stroke: #ffcc66;stroke-linecap: round;stroke-miterlimit:10;stroke-width: 20 } 
+		.s16 { opacity: .7;fill: none;stroke: #ff6600;stroke-linecap: round;stroke-miterlimit:10;stroke-width: 20 } 
+	</style>
+	<g id="Layer 1">
+		<g id="pumkin">
+			<path id="Shape 12" fill-rule="evenodd" class="s0" d="m674.55 167.8c0 0 24.95-165.12 99.01-153.23 74.06 11.89 53.92 22.64 47.14 37.72-6.77 15.08-79.43 18.21-38.89 124.94"/>
+			<path id="Shape 11" fill-rule="evenodd" class="s1" d="m705.61 164.74c30.89 10.72 151.84-17.96 209.6-3.79 225.55 55.35 247.73 638.96-246.21 590.91-324.5-31.56-394.76-736.91 36.61-587.12z"/>
+			<path id="Shape 11 copy 3" fill-rule="evenodd" class="s2" d="m1050.93 343.91c38.79 10.21 0 518.6-313.41 329.74 104.23-32.97 257.33-320.68 250.11-249.09-27.56 273.59 82.69 2.04 63.3-80.65z"/>
+			<path id="Shape 11 copy 4" fill-rule="evenodd" class="s3" d="m705.61 164.74c30.89 10.72 151.84-17.96 209.6-3.79 225.55 55.35 247.73 638.96-246.21 590.91-324.5-31.56-394.76-736.91 36.61-587.12z"/>
+			<path id="Shape 11 copy" fill-rule="evenodd" class="s1" d="m724.89 170.85c24.48 13.9 51.74-51.01 133.56 0 177.92 110.92 185.3 590.81-170.87 566.74-309.99-20.94-209.34-706.79 37.31-566.74z"/>
+			<path id="Shape 11 copy 5" fill-rule="evenodd" class="s2" d="m967.22 464.37c38.79 10.21-0.29 408.14-313.7 219.28 104.23-32.97 198.4-338.84 191.19-267.26-27.56 273.59 141.9 130.67 122.51 47.98z"/>
+			<path id="Shape 11 copy 6" fill-rule="evenodd" class="s4" d="m724.89 170.85c24.48 13.9 51.74-51.01 133.56 0 177.92 110.92 185.3 590.81-170.87 566.74-309.99-20.94-209.34-706.79 37.31-566.74z"/>
+			<path id="Shape 11 copy 2" fill-rule="evenodd" class="s1" d="m736.92 161.22c110.7 20.46 175.94 589.24-49.34 576.37-84.22-4.81-80.16-600.29 49.34-576.37z"/>
+			<path id="Shape 11 copy 8" fill-rule="evenodd" class="s2" d="m805.92 571.56c26.54-31.56 29.01 270.95-284.4 82.09 104.23-32.97 147.05-267.49 129.23-202.55-57.17 208.26 166.4 188.86 155.17 120.46z"/>
+			<path id="Shape 11 copy 7" fill-rule="evenodd" class="s4" d="m736.92 161.22c110.7 20.46 175.94 589.24-49.34 576.37-84.22-4.81-80.16-600.29 49.34-576.37z"/>
+		</g>
+		<g id="book">
+			<path id="Shape 9" fill-rule="evenodd" class="s5" d="m23.03 824.45l402.23-231.74 597.21 240.92-416.52 230.72-221.53-63.29c0 0-20.42 22.46-84.73-5.11-61.86-26.51-49-53.08-49-53.08z"/>
+			<path id="Shape 9 copy" fill-rule="evenodd" class="s6" d="m90 817l8.58-20.12-14.3-17.35 13.28-15.31-7.15-17.36 335.87-148.03 536.98 131.7-14.29 32.66 14.29 11.23-7.15 19.4 7.15 15.31-4.26 20.87-359.17 194.54-232.76-61.25c0 0-11.23 12.25-50.03-1.02-28.22-9.66-29.6-39.82-29.6-39.82z"/>
+			<path id="Shape 9 copy 2" fill-rule="evenodd" class="s7" d="m90 817l8.58-20.12-14.3-17.35 13.28-15.31 138.84-77.59 132.71 108.21 20.42 57.17 252.15-31.65-27.56 132.72-12.25 8.16 12.25 16.34-11.23 15.31-3.06 31.65-251.14-60.23c0 0 65.34-32.67-25.52-57.17-31.31-8.45-26.54 22.46-26.54 22.46z"/>
+			<path id="Shape 9 copy 3" fill-rule="evenodd" class="s3" d="m90 817l8.58-20.12-14.3-17.35 13.28-15.31-7.15-17.36 335.87-148.03 536.98 131.7-14.29 32.66 14.29 11.23-7.15 19.4 7.15 15.31-4.26 20.87-359.17 194.54-232.76-61.25c0 0-11.23 12.25-50.03-1.02-28.22-9.66-29.6-39.82-29.6-39.82z"/>
+			<path id="Shape 10" fill-rule="evenodd" class="s7" d="m334 928c0 0-22.49-100.2-251.76-188.29 203.59-139.12 351.76-159.71 351.76-159.71l536.4 148.48c0 0-317.49 138.84-359.34 221.53-173.55-84.73-277.06-22.01-277.06-22.01z"/>
+			<path id="Shape 10 copy 2" fill-rule="evenodd" class="s8" d="m334 928c0 0-22.49-100.2-251.76-188.29 203.59-139.12 351.76-159.71 351.76-159.71l536.4 148.48c0 0-317.49 138.84-359.34 221.53-173.55-84.73-277.06-22.01-277.06-22.01z"/>
+		</g>
+		<g id="cup">
+			<path id="Shape 4" fill-rule="evenodd" class="s9" d="m717 489c-26.59 13.9-39.75 91.17-9.75 91.17 30 0 54.03-55.14 84.03-55.14 30 0 37.63 146.16-105.91 159.29-80.13 7.33-69.37 63.93-39.37 63.68 287.94-2.41 278.31-367.39 71-259z"/>
+			<path id="Shape 3" fill-rule="evenodd" class="s9" d="m323.9 791.1c-55.1 98.51 307.22 105.87 269.1-0.48"/>
+			<path id="Shape 1 copy" fill-rule="evenodd" class="s10" d="m192.75 441.31c0 178.73 38.73 385.5 267 385.5 223.37 0 256.5-246.18 256.5-378 0-10.6-523.5-10.85-523.5-7.5z"/>
+			<path id="Shape 6" fill-rule="evenodd" class="s6" d="m313 781c-20.25-10.77 254.22 74.87 321-238 6.26-29.34 85.51-91.96 87-62 8.13 163.06-109.15 458.89-408 300z"/>
+			<path id="Shape 1" fill-rule="evenodd" class="s3" d="m192.75 441.31c0 178.73 38.73 385.5 267 385.5 223.37 0 256.5-246.18 256.5-378 0-10.6-523.5-10.85-523.5-7.5z"/>
+			<path id="Shape 2" fill-rule="evenodd" class="s11" d="m716.39 448.33c0-131.35-523.38-130.16-523.38-7.08 0 166.61 523.38 164.59 523.38 7.08z"/>
+			<path id="Shape 5" fill-rule="evenodd" class="s12" d="m232.88 443.63c0-77.54 444.62-74.47 444.62 5.25 0 88.92-444.62 122.98-444.62-5.25z"/>
+		</g>
+		<g id="cream">
+			<path id="Shape 7" fill-rule="evenodd" class="s7" d="m635.48 441.88c10.51 64.77-351.13 82.01-354.47 14.88-6.12-123.41 346.96-61.19 354.47-14.88z"/>
+			<path id="Shape 8" fill-rule="evenodd" class="s6" d="m561.56 408.47c39.62 41.28-130.01 60.54-160.64 85.92-23.1 19.15 222.13-21.38 228.03-35.15 13.13-30.64-88.4-72.65-67.39-50.77z"/>
+			<path id="Shape 7 copy" fill-rule="evenodd" class="s7" d="m595.22 409.5c26.74 35.17-274.99 75-278.32 7.87-6.13-123.4 234.73-65.23 278.32-7.87z"/>
+			<path id="Shape 8 copy 2" fill-rule="evenodd" class="s6" d="m519.56 374.47c39.62 41.28-80.13 47.28-110.76 72.66-23.1 19.14 183.08-7.05 188.98-20.82 13.13-30.64-99.23-73.72-78.22-51.84z"/>
+			<path id="Shape 7 copy 2" fill-rule="evenodd" class="s7" d="m512.08 356.98c30.63 57.08-175.08 55.75-175.93 0-1.75-115.53 163.24-23.63 175.93 0z"/>
+			<path id="Shape 8 copy" fill-rule="evenodd" class="s6" d="m445.56 325.47c39.62 41.28-7 42.02-37.64 67.4-23.1 19.14 99.13-2.86 105.03-16.63 13.13-30.64-88.4-72.65-67.39-50.77z"/>
+			<path id="Shape 7 copy 5" fill-rule="evenodd" class="s13" d="m336.15 356.98"/>
+			<path id="Shape 7 copy 3" fill-rule="evenodd" class="s13" d="m635.48 441.88c10.51 64.77-376.36 86.95-350.97 0.88 15.76-53.39 50.92-54.56 42.89-78.78-8.03-24.21 66.55-96.52 102.4-56.89 49.89 55.14 70.9 0.88 84.9 63.9 3.84 17.28 74.4 3.5 75.27 32.38 0.78 25.84 44.89 34.66 45.51 38.51z"/>
+		</g>
+		<g id="smell">
+			<path id="Shape 13" fill-rule="evenodd" class="s14" d="m529.32 306.13c-84.73-112.29 73.51-150.06 17.36-223.57"/>
+			<path id="Shape 13 copy" fill-rule="evenodd" class="s15" d="m458.88 277.55c-84.73-112.3 75.55-117.4 19.4-190.9"/>
+			<path id="Shape 13 copy 2" fill-rule="evenodd" class="s16" d="m392.53 249.99c-55.13-93.92 80.65-70.44 11.23-148.03"/>
+		</g>
+	</g>
+</svg>

@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import GameGrid from "./components/GameGrid";
+import "./styles/App.css";
 
-function App() {
+const App: React.FC = () => {
+  const [rows, setRows] = useState(6);
+  const [cols, setCols] = useState(7);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="layout">
+      <h1>Tap Loop Game</h1>
+      <p>Find the smallest loop taping every cells</p>
+      <div className="size-options">
+        <label>
+          Rows:
+          <input
+            type="number"
+            value={rows}
+            onChange={(e) => setRows(parseInt(e.target.value) || 1)}
+            min={2}
+            max={20}
+          />
+        </label>
+        <label>
+          Columns:
+          <input
+            type="number"
+            value={cols}
+            onChange={(e) => setCols(parseInt(e.target.value) || 1)}
+            min={2}
+            max={20}
+          />
+        </label>
+      </div>
+      <GameGrid dims={{ x: cols, y: rows }} />
     </div>
   );
-}
+};
 
 export default App;
