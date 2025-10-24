@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import GameGrid from "../components/GameGrid";
-import "../styles/App.css";
+import Game from "@/components/Game";
+import "@/styles/App.css";
 
 const App: React.FC = () => {
   const [rows, setRows] = useState(6);
@@ -34,7 +34,7 @@ const App: React.FC = () => {
           />
         </label>
       </div>
-      <GameGrid dims={{ x: cols, y: rows }} />
+      <Game dims={{ x: cols, y: rows }} />
     </div>
   );
 };

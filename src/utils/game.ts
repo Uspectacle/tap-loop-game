@@ -1,6 +1,6 @@
-import { Dimensions, Direction, Pos, TouchedSquare } from "../types";
+import { Dimensions, Direction, Position, TouchedSquare } from "@/types";
 
-const DIRECTION_MAP = new Map<Direction, Pos>([
+const DIRECTION_MAP = new Map<Direction, Position>([
   ["up", { x: 0, y: -1 }],
   ["down", { x: 0, y: 1 }],
   ["left", { x: -1, y: 0 }],
@@ -8,7 +8,7 @@ const DIRECTION_MAP = new Map<Direction, Pos>([
 ]);
 
 const nextPosition = (
-  position: Pos,
+  position: Position,
   direction: Direction,
   dims: Dimensions
 ) => {
@@ -20,7 +20,7 @@ const nextPosition = (
   };
 };
 
-export const getDirection = (path: Pos[]) => {
+export const getDirection = (path: Position[]) => {
   if (path.length < 2) {
     return "right";
   }
@@ -34,7 +34,7 @@ export const getDirection = (path: Pos[]) => {
   return "up";
 };
 
-const isSamePosition = (positionA: Pos, positionB: Pos) => {
+const isSamePosition = (positionA: Position, positionB: Position) => {
   return positionA.x === positionB.x && positionA.y === positionB.y;
 };
 
@@ -42,7 +42,7 @@ const clamp = (val: number, min: number, max: number) =>
   Math.max(min, Math.min(max, val));
 
 export const addToPath = (
-  path: Pos[],
+  path: Position[],
   direction: Direction,
   dims: Dimensions
 ) => {
@@ -56,8 +56,8 @@ export const addToPath = (
 };
 
 const getTouchableSquares = (
-  from: Pos,
-  to: Pos,
+  from: Position,
+  to: Position,
   dims: Dimensions
 ): TouchedSquare[] => {
   const touchableSquares: TouchedSquare[] = [];
@@ -111,7 +111,7 @@ const deduplicate = (touchedSquares: TouchedSquare[]): TouchedSquare[] => {
 };
 
 export const getTouchedSquares = (
-  path: Pos[],
+  path: Position[],
   dims: Dimensions
 ): TouchedSquare[] =>
   deduplicate(
@@ -120,5 +120,5 @@ export const getTouchedSquares = (
     )
   );
 
-export const getPathSegments = (path: Pos[]): [Pos, Pos][] =>
+export const getPathSegments = (path: Position[]): [Position, Position][] =>
   path.slice(1).map((to, i) => [path[i], to]);
