@@ -23,3 +23,8 @@
   margin: 0;
   font-size: 1rem;
 }
+
+.highlight {
+  transition: all 0.5s ease-in-out;
+  transform: scale(1.5);
+}

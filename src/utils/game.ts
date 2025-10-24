@@ -34,7 +34,7 @@ export const getDirection = (path: Position[]): Direction => {
   return "top";
 };
 
-const isSamePosition = <T extends Position>(positionA: T, positionB: T) => {
+export const isSamePosition = <T extends Position>(positionA: T, positionB: T) => {
   return positionA.x === positionB.x && positionA.y === positionB.y;
 };
 

@@ -1,15 +1,21 @@
+@property --pulse-phase {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
 @keyframes pulse {
   0% {
-    background-color: rgba(255, 255, 255, 1);
+    --pulse-phase: 0;
   }
   10% {
-    background-color: rgba(255, 234, 234, 0.873);
+    --pulse-phase: 1;
   }
   20% {
-    background-color: rgba(255, 255, 255, 1);
+    --pulse-phase: 0;
   }
   100% {
-    background-color: rgba(255, 255, 255, 1);
+    --pulse-phase: 0;
   }
 }
 
@@ -21,6 +27,7 @@
   --player: rgb(113, 62, 255);
   --paint: rgb(221, 208, 255);
   --wall: rgba(244, 240, 255, 0.914);
+  animation: pulse 7s linear infinite;
 
   padding: 10px;
   width: 100%;
@@ -50,15 +57,17 @@
 
 .cell {
   aspect-ratio: 1;
-  background-color: white;
   border-radius: 4px;
   width: 100%;
+  transition: all 0.5s ease-in-out;
+  background-color: color-mix(
+    in srgb,
+    rgba(255, 255, 255, 1) calc(100% - (var(--pulse-phase) * 100%)),
+    rgba(255, 234, 234, 0.873) calc(var(--pulse-phase) * 100%)
+  );
 }
 
 /* === Cell Highlights === */
-.cell.undefined {
-  animation: pulse 7s ease-in-out infinite;
-}
 
 .cell.top {
   background: radial-gradient(circle at bottom, var(--paint), var(--wall) 40%);
@@ -81,12 +90,16 @@
   height: 20px;
   transform: translate(-50%, -50%);
   transform-origin: center;
-  transition: transform 0.1s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .start {
   background-color: var(--player);
   border-radius: 50%;
+}
+
+.start.pulse {
+  transform: translate(-50%, -50%) scale(calc(0.6 * var(--pulse-phase) + 1));
 }
 
 .player {
@@ -115,6 +128,7 @@
   background-color: var(--player);
   transform-origin: left center;
   width: calc((100% / var(--cols)) + 1px);
+  transition: all 0.5s ease-in-out;
 }
 
 .path-line.top {

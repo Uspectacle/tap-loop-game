@@ -2,19 +2,42 @@
 
 import "@/styles/Grid.css";
 import { Dimensions, Position } from "@/types";
-import { getDirection, getPathSegments, getSquares } from "@/utils/game";
+import {
+  getDirection,
+  getPathSegments,
+  getSquares,
+  isSamePosition,
+} from "@/utils/game";
 import { useMemo } from "react";
 
 type Props = {
   path: Position[];
   dims: Dimensions;
+  onPositionClick: (position: Position) => unknown;
 };
 
-const Grid: React.FC<Props> = ({ path, dims }) => {
+const Grid: React.FC<Props> = ({ path, dims, onPositionClick }) => {
   const squares = useMemo(() => getSquares(path, dims), [path, dims]);
   const pathSegments = useMemo(() => getPathSegments(path), [path]);
   const player = useMemo(() => path[path.length - 1], [path]);
   const direction = useMemo(() => getDirection(path), [path]);
+  const noUnTapped = useMemo(
+    () => squares.every(({ direction }) => direction),
+    [squares]
+  );
+  const finished = useMemo(
+    () => noUnTapped && isSamePosition(player, path[0]),
+    [noUnTapped, player, path]
+  );
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cellWidth = rect.width / dims.x;
+    const cellHeight = rect.height / dims.y;
+    const x = Math.round((e.clientX - rect.left) / cellWidth);
+    const y = Math.round((e.clientY - rect.top) / cellHeight);
+    onPositionClick({ x, y });
+  };
 
   return (
     <div
@@ -25,6 +48,7 @@ const Grid: React.FC<Props> = ({ path, dims }) => {
           "--rows": dims.y,
         } as React.CSSProperties
       }
+      onClick={handleClick}
     >
       <div className="grid">
         {/* Grid cells */}
@@ -50,7 +74,7 @@ const Grid: React.FC<Props> = ({ path, dims }) => {
         ))}
 
         {/* Player */}
-        {path.length > 1 && (
+        {path.length > 1 && !finished && (
           <div
             className={`player ${direction}`}
             style={{
@@ -61,13 +85,15 @@ const Grid: React.FC<Props> = ({ path, dims }) => {
         )}
 
         {/* Start marker */}
-        <div
-          className="start"
-          style={{
-            left: `calc(var(--cell-width) * ${path[0].x})`,
-            top: `calc(var(--cell-height) * ${path[0].y} + var(--grid-gap))`,
-          }}
-        />
+        {finished || (
+          <div
+            className={`start ${noUnTapped ? "pulse" : ""}`}
+            style={{
+              left: `calc(var(--cell-width) * ${path[0].x})`,
+              top: `calc(var(--cell-height) * ${path[0].y} + var(--grid-gap))`,
+            }}
+          />
+        )}
       </div>
     </div>
   );
