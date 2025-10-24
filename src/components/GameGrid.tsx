@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
 import { Dimensions, Direction, Pos, TouchedSquare } from "../types";
 import {
   addToPath,

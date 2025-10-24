@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import GameGrid from "./components/GameGrid";
-import "./styles/App.css";
+"use client";
+
+import { useState } from "react";
+import GameGrid from "../components/GameGrid";
+import "../styles/App.css";
 
 const App: React.FC = () => {
   const [rows, setRows] = useState(6);

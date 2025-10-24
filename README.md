@@ -43,7 +43,7 @@ A grid-based path-drawing game where you need to find the loops taping every cel
 3. Start the development server:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
 4. Open http://localhost:3000 in your browser
