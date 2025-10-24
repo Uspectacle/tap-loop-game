@@ -20,16 +20,14 @@
 }
 
 .grid-wrapper {
-  --grid-gap: 2px;
-  --cell-width: calc(calc(100% - var(--grid-gap)) / var(--cols));
-  --cell-height: calc(calc(100% - var(--grid-gap)) / var(--rows));
+  --cell-width: calc(100% / var(--cols));
+  --cell-height: calc(100% / var(--rows));
   --ratio: calc(var(--cols) / var(--rows));
   --player: rgb(113, 62, 255);
   --paint: rgb(221, 208, 255);
   --wall: rgba(244, 240, 255, 0.914);
   animation: pulse 7s linear infinite;
 
-  padding: 10px;
   width: 100%;
   flex: 1;
 
@@ -38,17 +36,16 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  padding: 20px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
   grid-template-rows: repeat(var(--rows), 1fr);
-  box-sizing: border-box;
+
+  box-sizing: content-box;
   position: relative;
-  padding: var(--grid-gap);
-  background-color: #ccc;
-  gap: var(--grid-gap);
   border-radius: 4px;
 
   width: min(100cqw, calc(100cqh * var(--ratio)));
@@ -58,8 +55,10 @@
 .cell {
   aspect-ratio: 1;
   border-radius: 4px;
-  width: 100%;
+  width: 80%;
+  margin: 10%;
   transition: all 0.5s ease-in-out;
+  box-shadow: 0px 0px 0px 2px rgb(206, 206, 206);
   background-color: color-mix(
     in srgb,
     rgba(255, 255, 255, 1) calc(100% - (var(--pulse-phase) * 100%)),
@@ -105,6 +104,7 @@
 .player {
   background-color: var(--player);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transition: all 0.3s ease-in-out;
 }
 
 .player.top {
@@ -121,6 +121,15 @@
 }
 
 /* === Path Lines === */
+
+@keyframes drawLine {
+  from {
+    width: 0;
+  }
+  to {
+  }
+}
+
 .path-line {
   position: absolute;
   height: 4px;
@@ -128,18 +137,19 @@
   background-color: var(--player);
   transform-origin: left center;
   width: calc((100% / var(--cols)) + 1px);
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  animation: drawLine 0.3s ease-in-out forwards;
 }
 
 .path-line.top {
-  transform: rotate(-90deg);
+  transform: translate(0%, -50%) rotate(-90deg);
 }
 .path-line.bottom {
-  transform: rotate(90deg);
+  transform: translate(0%, -50%) rotate(90deg);
 }
 .path-line.left {
-  transform: rotate(180deg);
+  transform: translate(0%, -50%) rotate(180deg);
 }
 .path-line.right {
-  transform: rotate(0deg);
+  transform: translate(0%, -50%) rotate(0deg);
 }

@@ -36,6 +36,7 @@ const Grid: React.FC<Props> = ({ path, dims, onPositionClick }) => {
     const cellHeight = rect.height / dims.y;
     const x = Math.round((e.clientX - rect.left) / cellWidth);
     const y = Math.round((e.clientY - rect.top) / cellHeight);
+    console.log({ x, y, dx: x - player.x, dy: y - player.y });
     onPositionClick({ x, y });
   };
 
@@ -48,9 +49,8 @@ const Grid: React.FC<Props> = ({ path, dims, onPositionClick }) => {
           "--rows": dims.y,
         } as React.CSSProperties
       }
-      onClick={handleClick}
     >
-      <div className="grid">
+      <div className="grid" onClick={handleClick}>
         {/* Grid cells */}
         {squares.map((cell, i) => (
           <div key={i} className={`cell ${cell.direction}`} />
@@ -79,7 +79,7 @@ const Grid: React.FC<Props> = ({ path, dims, onPositionClick }) => {
             className={`player ${direction}`}
             style={{
               left: `calc(var(--cell-width) * ${player.x})`,
-              top: `calc(var(--cell-height) * ${player.y} + var(--grid-gap))`,
+              top: `calc(var(--cell-height) * ${player.y})`,
             }}
           />
         )}
@@ -90,7 +90,7 @@ const Grid: React.FC<Props> = ({ path, dims, onPositionClick }) => {
             className={`start ${noUnTapped ? "pulse" : ""}`}
             style={{
               left: `calc(var(--cell-width) * ${path[0].x})`,
-              top: `calc(var(--cell-height) * ${path[0].y} + var(--grid-gap))`,
+              top: `calc(var(--cell-height) * ${path[0].y})`,
             }}
           />
         )}

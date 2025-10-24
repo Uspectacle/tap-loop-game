@@ -102,6 +102,8 @@ const Game: React.FC<Props> = ({ dims }) => {
     const dx = target.x - player.x;
     const dy = target.y - player.y;
 
+    if (Math.abs(dx) === Math.abs(dy)) return;
+
     // Determine which axis is closer
     if (Math.abs(dx) < Math.abs(dy)) {
       // vertical move
