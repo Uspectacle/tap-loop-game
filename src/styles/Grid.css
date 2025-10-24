@@ -1,0 +1,131 @@
+@keyframes pulse {
+  0% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  10% {
+    background-color: rgba(255, 234, 234, 0.873);
+  }
+  20% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 1);
+  }
+}
+
+.grid-wrapper {
+  --grid-gap: 2px;
+  --cell-width: calc(calc(100% - var(--grid-gap)) / var(--cols));
+  --cell-height: calc(calc(100% - var(--grid-gap)) / var(--rows));
+  --ratio: calc(var(--cols) / var(--rows));
+  --player: rgb(113, 62, 255);
+  --paint: rgb(221, 208, 255);
+  --wall: rgba(244, 240, 255, 0.914);
+
+  padding: 10px;
+  width: 100%;
+  flex: 1;
+
+  container-type: size;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  box-sizing: border-box;
+  position: relative;
+  padding: var(--grid-gap);
+  background-color: #ccc;
+  gap: var(--grid-gap);
+  border-radius: 4px;
+
+  width: min(100cqw, calc(100cqh * var(--ratio)));
+  height: min(100cqh, calc(100cqw / var(--ratio)));
+}
+
+.cell {
+  aspect-ratio: 1;
+  background-color: white;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* === Cell Highlights === */
+.cell.undefined {
+  animation: pulse 7s ease-in-out infinite;
+}
+
+.cell.top {
+  background: radial-gradient(circle at bottom, var(--paint), var(--wall) 40%);
+}
+.cell.bottom {
+  background: radial-gradient(circle at top, var(--paint), var(--wall) 40%);
+}
+.cell.left {
+  background: radial-gradient(circle at right, var(--paint), var(--wall) 40%);
+}
+.cell.right {
+  background: radial-gradient(circle at left, var(--paint), var(--wall) 40%);
+}
+
+/* === Player and Start === */
+.start,
+.player {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  transition: transform 0.1s ease-out;
+}
+
+.start {
+  background-color: var(--player);
+  border-radius: 50%;
+}
+
+.player {
+  background-color: var(--player);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.player.top {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.player.bottom {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+.player.left {
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+.player.right {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* === Path Lines === */
+.path-line {
+  position: absolute;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--player);
+  transform-origin: left center;
+  width: calc((100% / var(--cols)) + 1px);
+}
+
+.path-line.top {
+  transform: rotate(-90deg);
+}
+.path-line.bottom {
+  transform: rotate(90deg);
+}
+.path-line.left {
+  transform: rotate(180deg);
+}
+.path-line.right {
+  transform: rotate(0deg);
+}
