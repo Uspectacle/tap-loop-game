@@ -5,8 +5,8 @@ import "@/styles/App.css";
 import { useState } from "react";
 
 const App: React.FC = () => {
-  const [rows, setRows] = useState(6);
-  const [cols, setCols] = useState(7);
+  const [sizeX, setSizeX] = useState(6);
+  const [sizeY, setSizeY] = useState(7);
 
   return (
     <div className="layout">
@@ -18,8 +18,8 @@ const App: React.FC = () => {
             Rows:
             <input
               type="number"
-              value={rows}
-              onChange={(e) => setRows(parseInt(e.target.value) || 1)}
+              value={sizeY}
+              onChange={(e) => setSizeY(parseInt(e.target.value) || 1)}
               min={2}
               max={20}
             />
@@ -28,14 +28,35 @@ const App: React.FC = () => {
             Columns:
             <input
               type="number"
-              value={cols}
-              onChange={(e) => setCols(parseInt(e.target.value) || 1)}
+              value={sizeX}
+              onChange={(e) => setSizeX(parseInt(e.target.value) || 1)}
               min={2}
               max={20}
             />
           </label>
         </div>
-        <Game dims={{ x: cols, y: rows }} />
+        <Game
+          board={{
+            size: { x: sizeX, y: sizeY },
+            start: { x: 1, y: 1 },
+            noSquares: [
+              { x: 0, y: 0 },
+              { x: 0, y: sizeY - 1 },
+              { x: sizeX - 1, y: 0 },
+              { x: sizeX - 1, y: sizeY - 1 },
+            ],
+            obstacles: [
+              [
+                { x: 0, y: 0 },
+                { x: 0, y: 1 },
+              ],
+              [
+                { x: 5, y: 4 },
+                { x: 4, y: 4 },
+              ],
+            ],
+          }}
+        />
       </main>
     </div>
   );

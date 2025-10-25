@@ -1,43 +1,35 @@
 "use client";
 
 import "@/styles/Game.css";
-import { Dimensions, Direction, Position } from "@/types";
-import { addToPath, getSquares, isSamePosition } from "@/utils/game";
+import { Board, Direction, Position } from "@/types";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Grid from "./Grid";
+import { getInfo } from "@/utils/info";
+import { moveInDirection } from "@/utils/segment";
 
 type Props = {
-  dims: Dimensions;
+  board: Board;
 };
 
 const SWIPE_THRESHOLD = 30; // minimum px distance for swipe to count
 
-const Game: React.FC<Props> = ({ dims }) => {
-  const [path, setPath] = useState<Position[]>([{ x: 1, y: 1 }]);
+const Game: React.FC<Props> = ({ board }) => {
+  const [path, setPath] = useState<Position[]>([board.start]);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
-  const squares = useMemo(() => getSquares(path, dims), [path, dims]);
-  const player = useMemo(() => path[path.length - 1], [path]);
-  const noUnTapped = useMemo(
-    () => squares.every(({ direction }) => direction),
-    [squares]
-  );
-  const finished = useMemo(
-    () => noUnTapped && isSamePosition(player, path[0]),
-    [noUnTapped, player, path]
-  );
+  const info = useMemo(() => getInfo(path, board), [path, board]);
 
   const reset = () => setPath((prev) => [prev[0]]);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(reset, [dims]);
+  useEffect(reset, [board]);
 
   const move = useCallback(
     (direction: Direction) => {
-      if (!finished) {
-        setPath((prev) => addToPath(prev, direction, dims));
+      if (!info.finished) {
+        setPath((prev) => moveInDirection(prev, direction, board));
       }
     },
-    [dims, finished]
+    [board, info.finished]
   );
 
   /** Keyboard movement (desktop) */
@@ -128,12 +120,24 @@ const Game: React.FC<Props> = ({ dims }) => {
     }
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cellWidth = rect.width / board.size.x;
+    const cellHeight = rect.height / board.size.y;
+    const x = Math.round((e.clientX - rect.left) / cellWidth);
+    const y = Math.round((e.clientY - rect.top) / cellHeight);
+
+    onPositionClick({ x, y });
+  };
+
   return (
     <>
-      <Grid path={path} dims={dims} onPositionClick={onPositionClick} />
+      <Grid handleClick={handleClick} {...info} />
       <div className="controls">
         <button onClick={undo}>Undo</button>
-        <p className={finished ? "highlight" : ""}>Steps: {path.length - 1}</p>
+        <p className={info.finished ? "highlight" : ""}>
+          Steps: {path.length - 1}
+        </p>
         <button onClick={reset}>Reset</button>
       </div>
     </>

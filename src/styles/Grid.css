@@ -68,6 +68,9 @@
 
 /* === Cell Highlights === */
 
+.cell.noSquare {
+  opacity: 0.1;
+}
 .cell.top {
   background: radial-gradient(circle at bottom, var(--paint), var(--wall) 40%);
 }
@@ -152,4 +155,36 @@
 }
 .path-line.right {
   transform: translate(0%, -50%) rotate(0deg);
+}
+
+.obstacle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: none;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.obstacle::before,
+.obstacle::after {
+  content: "";
+  position: absolute;
+  background-color: rgb(181, 108, 108); /* make it a black cross */
+  border-radius: 2px;
+}
+
+.obstacle::before {
+  width: 100%;
+  height: 4px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.obstacle::after {
+  width: 4px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }

@@ -6,7 +6,26 @@ export type Position = {
 export type Direction = "top" | "bottom" | "left" | "right";
 
 export type Square = Position & {
-  direction?: Direction;
+  tapped?: Direction | "noSquare";
 };
 
-export type Dimensions = Position;
+export type Segment = [Position, Position];
+
+export type Path = Position[];
+
+export type Board = {
+  size: Position;
+  start: Position;
+  noSquares?: Position[];
+  obstacles?: Segment[];
+};
+
+export type Info = Board & {
+  path: Path;
+  squares: Square[];
+  pathSegments: Segment[];
+  player: Position;
+  direction: Direction;
+  everySquareTapped: boolean;
+  finished: boolean;
+};
