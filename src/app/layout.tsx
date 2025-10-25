@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./Layout.css";
+import { GameProvider } from "@/components/GameProvider";
 
 export const metadata: Metadata = {
   title: "Tap Loop Game",
@@ -11,19 +12,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
-        <div className="layout">
-          <main className="main">
-            <h1>Tap Loop Game</h1>
-            <p>Find the smallest loop taping every cells</p>
-            {children}
-          </main>
-        </div>
+        <GameProvider>
+          <div className="layout">
+            <main className="main">
+              <h1>Tap Loop Game</h1>
+              <p>Find the smallest loop taping every cells</p>
+              {children}
+            </main>
+          </div>
+        </GameProvider>
       </body>
     </html>
   );

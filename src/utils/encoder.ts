@@ -1,5 +1,6 @@
 import { Board, Path, Position, Segment } from "@/types";
 import { isValidPlayerPosition } from "./position";
+import { isValidPath } from "./segment";
 
 // Assumes all numbers < 36 for an equal-length digits
 
@@ -15,10 +16,21 @@ const decodePosition = (s: string): Position => {
 };
 
 export const encodePath = (path: Path): string =>
-  path.map(encodePosition).join("-");
+  path.map(encodePosition).join(".");
 
-export const decodePath = (str: string): Path =>
-  str.split("-").map(decodePosition);
+export const decodePath = (str: string | null, board: Board): Path => {
+  try {
+    const path = str!.split(".").map(decodePosition);
+
+    if (!isValidPath(path, board)) {
+      throw new Error("Invalid path");
+    }
+
+    return path;
+  } catch {
+    return [board.start];
+  }
+};
 
 const encodeSegment = ([a, b]: Segment) =>
   `${encodePosition(a)}_${encodePosition(b)}`;
@@ -26,16 +38,6 @@ const encodeSegment = ([a, b]: Segment) =>
 const decodeSegment = (s: string): Segment => {
   const [a, b] = s.split("_");
   return [decodePosition(a), decodePosition(b)];
-};
-
-export const encodeBoard = (b: Board): string => {
-  const parts = [
-    encodePosition(b.size),
-    encodePosition(b.start),
-    b.noSquares?.map(encodePosition).join(",") ?? "",
-    b.obstacles?.map(encodeSegment).join(",") ?? "",
-  ];
-  return parts.join(":");
 };
 
 const DEFAULT_BOARD: Board = {
@@ -55,9 +57,19 @@ const DEFAULT_BOARD: Board = {
   ],
 };
 
+export const encodeBoard = (b: Board): string => {
+  const parts = [
+    encodePosition(b.size),
+    encodePosition(b.start),
+    b.noSquares?.map(encodePosition).join("-") ?? "",
+    b.obstacles?.map(encodeSegment).join("-") ?? "",
+  ];
+  return parts.join("~");
+};
+
 export const decodeBoard = (s: string | null): Board => {
   try {
-    const [sizeStr, startStr, noSqStr, obsStr] = s!.split(":");
+    const [sizeStr, startStr, noSqStr, obsStr] = s!.split("~");
     const size = decodePosition(sizeStr);
     const start = decodePosition(startStr);
 
@@ -69,10 +81,10 @@ export const decodeBoard = (s: string | null): Board => {
       size,
       start,
       noSquares: noSqStr
-        ? noSqStr.split(",").filter(Boolean).map(decodePosition)
+        ? noSqStr.split("-").filter(Boolean).map(decodePosition)
         : undefined,
       obstacles: obsStr
-        ? obsStr.split(",").filter(Boolean).map(decodeSegment)
+        ? obsStr.split("-").filter(Boolean).map(decodeSegment)
         : undefined,
     };
   } catch {

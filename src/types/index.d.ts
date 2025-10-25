@@ -29,3 +29,5 @@ export type Info = Board & {
   everySquareTapped: boolean;
   finished: boolean;
 };
+
+export type Page = "edit" | "review" | "play";

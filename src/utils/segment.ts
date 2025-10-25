@@ -47,6 +47,16 @@ const isValidSegment = (segment: Segment, board: Board): boolean => {
   );
 };
 
+export const isValidPath = (path: Path, board: Board): boolean => {
+  if (!isSamePosition(path[0], board.start)) {
+    return false;
+  }
+
+  return getPathSegments(path).every((segment) =>
+    isValidSegment(segment, board)
+  );
+};
+
 export const getDirection = (path: Path): Direction => {
   if (path.length < 2) {
     return "right";
@@ -62,17 +72,16 @@ export const getDirection = (path: Path): Direction => {
 };
 
 export const moveInDirection = (
-  path: Path,
   direction: Direction,
+  path: Path,
   board: Board
 ) => {
   const position = path[path.length - 1];
   const nextPosition = followDirection(position, direction);
-  const valid = isValidSegment([position, nextPosition], board);
 
-  if (valid) {
-    return [...path, nextPosition];
+  if (!isValidSegment([position, nextPosition], board)) {
+    return undefined;
   }
 
-  return path;
+  return nextPosition;
 };

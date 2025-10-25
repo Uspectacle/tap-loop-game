@@ -1,5 +1,5 @@
 "use client";
 
-import NotFound from "./[...notFound]/page";
+import NotFound from "./not-found";
 
 export default NotFound;

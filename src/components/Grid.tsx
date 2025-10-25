@@ -1,25 +1,26 @@
 "use client";
 
+import { useGame } from "@/context/GameContext";
 import "./Grid.css";
-import { Info } from "@/types";
 import { getDirection } from "@/utils/segment";
 
-type Props = Info & {
+type Props = {
   handleClick: (e: React.MouseEvent<HTMLDivElement>) => unknown;
 };
 
-const Grid: React.FC<Props> = ({
-  path,
-  size,
-  squares,
-  pathSegments,
-  finished,
-  direction,
-  player,
-  everySquareTapped,
-  obstacles,
-  handleClick,
-}) => {
+const Grid: React.FC<Props> = ({ handleClick }) => {
+  const {
+    path,
+    size,
+    squares,
+    pathSegments,
+    finished,
+    direction,
+    player,
+    everySquareTapped,
+    obstacles,
+  } = useGame();
+
   return (
     <div
       className="grid-wrapper"
