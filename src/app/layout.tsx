@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./Layout.css";
 
 export const metadata: Metadata = {
   title: "Tap Loop Game",
@@ -15,7 +16,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="layout">
+          <main className="main">
+            <h1>Tap Loop Game</h1>
+            <p>Find the smallest loop taping every cells</p>
+            {children}
+          </main>
+        </div>
+      </body>
     </html>
   );
 }

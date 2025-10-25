@@ -1,6 +1,6 @@
 "use client";
 
-import "@/styles/Grid.css";
+import "./Grid.css";
 import { Info } from "@/types";
 import { getDirection } from "@/utils/segment";
 

@@ -1,11 +1,13 @@
 "use client";
 
-import "@/styles/Game.css";
 import { Board, Direction, Position } from "@/types";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Grid from "./Grid";
+import { decodeBoard } from "@/utils/encoder";
 import { getInfo } from "@/utils/info";
 import { moveInDirection } from "@/utils/segment";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Grid from "../../components/Grid";
+import "./Play.css";
 
 type Props = {
   board: Board;
@@ -13,9 +15,12 @@ type Props = {
 
 const SWIPE_THRESHOLD = 30; // minimum px distance for swipe to count
 
-const Game: React.FC<Props> = ({ board }) => {
+const Play: React.FC<Props> = () => {
+  const searchParams = useSearchParams();
+  const board = decodeBoard(searchParams.get("b"));
+
   const [path, setPath] = useState<Position[]>([board.start]);
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const touchStart = useRef<Position | null>(null);
   const info = useMemo(() => getInfo(path, board), [path, board]);
 
   const reset = () => setPath((prev) => [prev[0]]);
@@ -144,4 +149,4 @@ const Game: React.FC<Props> = ({ board }) => {
   );
 };
 
-export default Game;
+export default Play;

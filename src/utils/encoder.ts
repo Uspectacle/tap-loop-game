@@ -1,4 +1,5 @@
 import { Board, Path, Position, Segment } from "@/types";
+import { isValidPlayerPosition } from "./position";
 
 // Assumes all numbers < 36 for an equal-length digits
 
@@ -37,17 +38,44 @@ export const encodeBoard = (b: Board): string => {
   return parts.join(":");
 };
 
-export const decodeBoard = (s: string): Board => {
-  const [sizeStr, startStr, noSqStr, obsStr] = s.split(":");
+const DEFAULT_BOARD: Board = {
+  size: { x: 6, y: 7 },
+  start: { x: 1, y: 1 },
+  noSquares: [
+    { x: 0, y: 0 },
+    { x: 0, y: 7 - 1 },
+    { x: 6 - 1, y: 0 },
+    { x: 6 - 1, y: 7 - 1 },
+  ],
+  obstacles: [
+    [
+      { x: 5, y: 4 },
+      { x: 4, y: 4 },
+    ],
+  ],
+};
 
-  return {
-    size: decodePosition(sizeStr),
-    start: decodePosition(startStr),
-    noSquares: noSqStr
-      ? noSqStr.split(",").filter(Boolean).map(decodePosition)
-      : undefined,
-    obstacles: obsStr
-      ? obsStr.split(",").filter(Boolean).map(decodeSegment)
-      : undefined,
-  };
+export const decodeBoard = (s: string | null): Board => {
+  try {
+    const [sizeStr, startStr, noSqStr, obsStr] = s!.split(":");
+    const size = decodePosition(sizeStr);
+    const start = decodePosition(startStr);
+
+    if (!isValidPlayerPosition(start, size)) {
+      throw new Error("Invalid start position");
+    }
+
+    return {
+      size,
+      start,
+      noSquares: noSqStr
+        ? noSqStr.split(",").filter(Boolean).map(decodePosition)
+        : undefined,
+      obstacles: obsStr
+        ? obsStr.split(",").filter(Boolean).map(decodeSegment)
+        : undefined,
+    };
+  } catch {
+    return DEFAULT_BOARD;
+  }
 };

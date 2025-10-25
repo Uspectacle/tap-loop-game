@@ -1,4 +1,4 @@
-import { Board, Position } from "@/types";
+import { Position } from "@/types";
 
 export const isSamePosition = (positionA: Position, positionB: Position) => {
   return positionA.x === positionB.x && positionA.y === positionB.y;
@@ -9,7 +9,7 @@ export const isPosition = (positionA: Position) => (positionB: Position) =>
 
 export const isValidPlayerPosition = (
   position: Position,
-  board: Board
+  size: Position
 ): boolean => {
   if (position.x < 0) {
     return false;
@@ -19,11 +19,11 @@ export const isValidPlayerPosition = (
     return false;
   }
 
-  if (position.x > board.size.x) {
+  if (position.x > size.x) {
     return false;
   }
 
-  if (position.y > board.size.y) {
+  if (position.y > size.y) {
     return false;
   }
 

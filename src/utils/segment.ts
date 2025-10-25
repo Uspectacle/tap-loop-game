@@ -42,7 +42,9 @@ const isValidSegment = (segment: Segment, board: Board): boolean => {
     return false;
   }
 
-  return segment.every((position) => isValidPlayerPosition(position, board));
+  return segment.every((position) =>
+    isValidPlayerPosition(position, board.size)
+  );
 };
 
 export const getDirection = (path: Path): Direction => {
