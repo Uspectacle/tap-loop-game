@@ -34,10 +34,17 @@ const isSameSegment = (segmentA: Segment, segmentB: Segment): boolean => {
   );
 };
 
-const isSegment = (segmentA: Segment) => (segmentB: Segment) =>
+export const isSegment = (segmentA: Segment) => (segmentB: Segment) =>
   isSameSegment(segmentA, segmentB);
 
-const isValidSegment = (segment: Segment, board: Board): boolean => {
+export const isValidSegment = (
+  segment: Segment | undefined,
+  board: Board
+): segment is Segment => {
+  if (!segment) {
+    return false;
+  }
+
   if (board.obstacles?.some(isSegment(segment))) {
     return false;
   }

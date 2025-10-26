@@ -5,10 +5,24 @@ import "./Grid.css";
 import { getDirection } from "@/utils/segment";
 
 type Props = {
-  handleClick: (e: React.MouseEvent<HTMLDivElement>) => unknown;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => unknown;
+  onMouseMove?: (e: React.MouseEvent<HTMLDivElement>) => unknown;
+  onMouseUp?: (e: React.MouseEvent<HTMLDivElement>) => unknown;
+  onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => unknown;
+  onStartDrag?: (e: React.MouseEvent<HTMLDivElement>) => unknown;
+  startDragging?: boolean;
+  noPath?: boolean;
 };
 
-const Grid: React.FC<Props> = ({ handleClick }) => {
+const Grid: React.FC<Props> = ({
+  onClick,
+  onMouseMove,
+  onMouseUp,
+  onMouseLeave,
+  onStartDrag,
+  startDragging,
+  noPath,
+}) => {
   const {
     path,
     size,
@@ -19,11 +33,16 @@ const Grid: React.FC<Props> = ({ handleClick }) => {
     player,
     everySquareTapped,
     obstacles,
+    start,
   } = useGame();
 
   return (
     <div
       className="grid-wrapper"
+      onClick={onClick}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseLeave}
       style={
         {
           "--cols": size.x,
@@ -31,30 +50,39 @@ const Grid: React.FC<Props> = ({ handleClick }) => {
         } as React.CSSProperties
       }
     >
-      <div className="grid" onClick={handleClick}>
+      <div className="grid">
         {/* Grid cells */}
         {squares.map((cell, i) => (
-          <div key={i} className={`cell ${cell.tapped}`} />
-        ))}
-
-        {/* Path segments */}
-        {pathSegments.map(([from, to], i) => (
           <div
             key={i}
-            className={`path-line ${getDirection([from, to])}`}
-            style={{
-              left: `calc(var(--cell-width) * ${from.x})`,
-              top: `calc(var(--cell-height) * ${from.y})`,
-              opacity: Math.max(Math.exp((i - pathSegments.length) / 20), 0.4),
-              height: `${Math.max(
-                Math.exp((i - pathSegments.length) / 40) * 5,
-                3
-              )}px`,
-            }}
+            className={`cell ${
+              noPath && cell.tapped !== "noSquare" ? "noPath" : cell.tapped
+            }`}
           />
         ))}
 
         {/* Path segments */}
+        {!noPath &&
+          pathSegments.map(([from, to], i) => (
+            <div
+              key={i}
+              className={`path-line ${getDirection([from, to])}`}
+              style={{
+                left: `calc(var(--cell-width) * ${from.x})`,
+                top: `calc(var(--cell-height) * ${from.y})`,
+                opacity: Math.max(
+                  Math.exp((i - pathSegments.length) / 20),
+                  0.4
+                ),
+                height: `${Math.max(
+                  Math.exp((i - pathSegments.length) / 40) * 5,
+                  3
+                )}px`,
+              }}
+            />
+          ))}
+
+        {/* Obstacles */}
         {obstacles?.map(([from, to], i) => (
           <div
             key={i}
@@ -66,8 +94,8 @@ const Grid: React.FC<Props> = ({ handleClick }) => {
           />
         ))}
 
-        {/* Player */}
-        {path.length > 1 && !finished && (
+        {/* Player  */}
+        {!noPath && path.length > 1 && !finished && (
           <div
             className={`player ${direction}`}
             style={{
@@ -78,13 +106,20 @@ const Grid: React.FC<Props> = ({ handleClick }) => {
         )}
 
         {/* Start marker */}
-        {finished || (
+        {(noPath || !finished) && (
           <div
-            className={`start ${everySquareTapped ? "pulse" : ""}`}
+            className={`start ${!noPath && everySquareTapped ? "pulse" : ""}`}
             style={{
-              left: `calc(var(--cell-width) * ${path[0].x})`,
-              top: `calc(var(--cell-height) * ${path[0].y})`,
+              left: `calc(var(--cell-width) * ${start.x})`,
+              top: `calc(var(--cell-height) * ${start.y})`,
+              cursor: noPath
+                ? startDragging
+                  ? "grabbing"
+                  : "grab"
+                : undefined,
+              zIndex: noPath ? 20 : undefined,
             }}
+            onMouseDown={onStartDrag}
           />
         )}
       </div>

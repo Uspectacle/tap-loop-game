@@ -1,7 +1,10 @@
 "use client";
 
 import { Direction, Path, Position } from "@/types";
-import { getClickedPosition, getDirectionFromTouch } from "@/utils/controls";
+import {
+  getClickedPlayerPosition,
+  getDirectionFromTouch,
+} from "@/utils/controls";
 import { moveInDirection } from "@/utils/segment";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Grid from "../../components/Grid";
@@ -10,24 +13,35 @@ import { useGame } from "@/context/GameContext";
 import { copyURL } from "@/utils/url";
 
 const Play: React.FC = () => {
-  const { path, board, setPath, finished, navigateTo } = useGame();
+  const { path, board, size, start, setPath, finished, navigateTo } = useGame();
 
   const [redoStack, setRedoStack] = useState<Path>([]);
   const touchStart = useRef<Position | null>(null);
 
   const reset = useCallback(() => {
-    setPath([board.start]);
+    setPath([start]);
     setRedoStack([]);
-  }, [board.start, setPath]);
+  }, [start, setPath]);
 
   const move = useCallback(
-    (direction: Direction) => {
+    (direction: Direction, iteration: number = 1) => {
       if (finished) return;
-      const nextPosition = moveInDirection(direction, path, board);
 
-      if (nextPosition) {
+      const newPath: Position[] = [...path];
+
+      for (let index = 0; index < iteration; index++) {
+        const nextPosition = moveInDirection(direction, newPath, board);
+
+        if (!nextPosition) {
+          break;
+        }
+
+        newPath.push(nextPosition);
+      }
+
+      if (newPath.length !== path.length) {
         setRedoStack([]);
-        setPath((prev) => [...prev, nextPosition]);
+        setPath(newPath);
       }
     },
     [path, setPath, board, finished]
@@ -95,36 +109,43 @@ const Play: React.FC = () => {
     }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = getClickedPosition(e, board);
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = getClickedPlayerPosition(e, size);
     const player = path[path.length - 1];
     const dx = target.x - player.x;
     const dy = target.y - player.y;
 
     if (Math.abs(dx) === Math.abs(dy)) return;
 
-    const direction: Direction =
+    const [direction, iteration]: [Direction, number] =
       Math.abs(dx) > Math.abs(dy)
         ? dx > 0
-          ? "right"
-          : "left"
+          ? ["right", dx]
+          : ["left", -dx]
         : dy > 0
-        ? "bottom"
-        : "top";
+        ? ["bottom", dy]
+        : ["top", -dy];
 
-    move(direction);
+    move(direction, iteration);
   };
 
   return (
     <>
       <div className="controls">
         <button onClick={() => navigateTo("edit")}>Edit Board</button>
-        <button onClick={reset}>Reset</button>
+        <button onClick={reset} disabled={path.length <= 1}>
+          Reset
+        </button>
         <button onClick={copyURL}>Copy URL</button>
-        <button onClick={() => navigateTo("review")}>Review Path</button>
+        <button
+          onClick={() => navigateTo("review")}
+          disabled={path.length <= 1}
+        >
+          Review Path
+        </button>
       </div>
 
-      <Grid handleClick={handleClick} />
+      <Grid onClick={onClick} />
 
       <div className="controls">
         <button onClick={undo} disabled={path.length <= 1}>

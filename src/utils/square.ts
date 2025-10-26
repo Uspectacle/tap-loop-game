@@ -1,7 +1,7 @@
 import { Board, Direction, Path, Square } from "@/types";
 import { encodePosition } from "./encoder";
 import { getPathSegments, isAlongX } from "./segment";
-import { isPosition } from "./position";
+import { isValidSquarePosition } from "./position";
 
 const getBoardSquares = (board: Board): Square[] => {
   return Array.from({ length: board.size.y }).flatMap((_, y) =>
@@ -10,7 +10,7 @@ const getBoardSquares = (board: Board): Square[] => {
 };
 
 const getTapMap = (path: Path) => {
-  const segments = getPathSegments(path);
+  const segments = getPathSegments(path).reverse();
   const tapMap = new Map<string, Direction>();
 
   segments.forEach((segment) => {
@@ -38,8 +38,8 @@ export const getSquares = (path: Path, board: Board): Square[] => {
 
   return squares.map((square) => ({
     ...square,
-    tapped: board.noSquares?.some(isPosition(square))
-      ? "noSquare"
-      : tapMap.get(encodePosition(square)),
+    tapped: isValidSquarePosition(square, board)
+      ? tapMap.get(encodePosition(square))
+      : "noSquare",
   }));
 };

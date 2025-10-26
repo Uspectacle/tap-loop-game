@@ -29,7 +29,7 @@
   animation: pulse 7s linear infinite;
 
   width: 100%;
-  flex: 1;
+  height: 100%;
 
   container-type: size;
   display: flex;
@@ -66,10 +66,17 @@
   );
 }
 
+.cell.noPath {
+  transition: all 0.1s ease-in-out;
+  background-color: rgba(255, 255, 255, 1);
+}
+
 /* === Cell Highlights === */
 
 .cell.noSquare {
   opacity: 0.1;
+  transition: all 0.1s ease-in-out;
+  background-color: rgba(255, 255, 255, 1);
 }
 .cell.top {
   background: radial-gradient(circle at bottom, var(--paint), var(--wall) 40%);
