@@ -30,4 +30,4 @@ export type Info = Board & {
   finished: boolean;
 };
 
-export type Page = "edit" | "review" | "play";
+export type Page = "edit" | "play";

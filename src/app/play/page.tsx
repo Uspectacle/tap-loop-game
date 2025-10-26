@@ -137,12 +137,6 @@ const Play: React.FC = () => {
           Reset
         </button>
         <button onClick={copyURL}>Copy URL</button>
-        <button
-          onClick={() => navigateTo("review")}
-          disabled={path.length <= 1}
-        >
-          Review Path
-        </button>
       </div>
 
       <Grid onClick={onClick} />

@@ -9,17 +9,18 @@ completedColumns:
 
 ## Backlog
 
-- [display-highscore](tasks/display-highscore.md)
-- [save-highscore-in-db](tasks/save-highscore-in-db.md)
+- [link-to-github-and-redo-readme](tasks/link-to-github-and-redo-readme.md)
 
 ## Todo
 
-## In Progress
+- [display-highscore](tasks/display-highscore.md)
+- [save-highscore-in-db](tasks/save-highscore-in-db.md)
 
-- [make-a-review-mode](tasks/make-a-review-mode.md)
+## In Progress
 
 ## Done
 
+- [make-a-review-mode](tasks/make-a-review-mode.md)
 - [make-an-edit-mode](tasks/make-an-edit-mode.md)
 - [make-a-board-path-encoder](tasks/make-a-board-path-encoder.md)
 - [read-and-write-board-url-key](tasks/read-and-write-board-url-key.md)

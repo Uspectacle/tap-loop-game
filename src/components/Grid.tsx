@@ -3,6 +3,7 @@
 import { useGame } from "@/context/GameContext";
 import "./Grid.css";
 import { getDirection } from "@/utils/segment";
+import { useEffect, useState } from "react";
 
 type Props = {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => unknown;
@@ -24,17 +25,37 @@ const Grid: React.FC<Props> = ({
   noPath,
 }) => {
   const {
-    path,
     size,
     squares,
     pathSegments,
     finished,
-    direction,
-    player,
+    path,
     everySquareTapped,
     obstacles,
     start,
   } = useGame();
+
+  const [playIndex, setPlayIndex] = useState(0);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | undefined;
+
+    if (!finished) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPlayIndex(path.length - 1);
+      if (interval) clearInterval(interval);
+    } else if (pathSegments.length) {
+      // Loop through the path every 0.4s
+      interval = setInterval(() => {
+        setPlayIndex((prev) => (prev % pathSegments.length) + 1);
+      }, 200);
+    }
+
+    // Cleanup interval when state changes
+    return () => clearInterval(interval);
+  }, [finished, path.length, pathSegments.length]);
+
+  const playPath = path.slice(0, playIndex + 1);
 
   return (
     <div
@@ -63,24 +84,23 @@ const Grid: React.FC<Props> = ({
 
         {/* Path segments */}
         {!noPath &&
-          pathSegments.map(([from, to], i) => (
-            <div
-              key={i}
-              className={`path-line ${getDirection([from, to])}`}
-              style={{
-                left: `calc(var(--cell-width) * ${from.x})`,
-                top: `calc(var(--cell-height) * ${from.y})`,
-                opacity: Math.max(
-                  Math.exp((i - pathSegments.length) / 20),
-                  0.4
-                ),
-                height: `${Math.max(
-                  Math.exp((i - pathSegments.length) / 40) * 5,
-                  3
-                )}px`,
-              }}
-            />
-          ))}
+          pathSegments.map(([from, to], i) => {
+            const age =
+              (playIndex - i + pathSegments.length - 1) % pathSegments.length;
+
+            return (
+              <div
+                key={i}
+                className={`path-line ${getDirection([from, to])}`}
+                style={{
+                  left: `calc(var(--cell-width) * ${from.x})`,
+                  top: `calc(var(--cell-height) * ${from.y})`,
+                  opacity: Math.max(Math.exp(-age / 20), 0.4),
+                  height: `${Math.max(Math.exp(-age / 40) * 5, 3)}px`,
+                }}
+              />
+            );
+          })}
 
         {/* Obstacles */}
         {obstacles?.map(([from, to], i) => (
@@ -95,12 +115,16 @@ const Grid: React.FC<Props> = ({
         ))}
 
         {/* Player  */}
-        {!noPath && path.length > 1 && !finished && (
+        {!noPath && pathSegments.length && (
           <div
-            className={`player ${direction}`}
+            className={`player ${getDirection(playPath)}`}
             style={{
-              left: `calc(var(--cell-width) * ${player.x})`,
-              top: `calc(var(--cell-height) * ${player.y})`,
+              left: `calc(var(--cell-width) * ${
+                playPath[playPath.length - 1].x
+              })`,
+              top: `calc(var(--cell-height) * ${
+                playPath[playPath.length - 1].y
+              })`,
             }}
           />
         )}
