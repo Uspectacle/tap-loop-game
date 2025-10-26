@@ -44,6 +44,9 @@ jobs:
           name: github-pages
           path: out
 
+      - name: Check environment variable
+        run: echo "Firebase Project ID is: $NEXT_PUBLIC_FIREBASE_PROJECT_ID"
+
   deploy:
     environment:
       name: github-pages
@@ -55,3 +58,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      
+    - name: Check environment variable
+      run: echo "Firebase Project ID is: $NEXT_PUBLIC_FIREBASE_PROJECT_ID"

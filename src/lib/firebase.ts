@@ -12,6 +12,11 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
 };
 
+console.log(
+  "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+  process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+);
+
 // Avoid re-initializing if already initialized (Next.js does hot reloads)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
