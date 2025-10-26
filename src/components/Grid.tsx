@@ -115,7 +115,7 @@ const Grid: React.FC<Props> = ({
         ))}
 
         {/* Player  */}
-        {!noPath && pathSegments.length && (
+        {!noPath && !!pathSegments.length && (
           <div
             className={`player ${getDirection(playPath)}`}
             style={{

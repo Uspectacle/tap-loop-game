@@ -5,7 +5,7 @@ import {
   getClickedPlayerPosition,
   getDirectionFromTouch,
 } from "@/utils/controls";
-import { moveInDirection } from "@/utils/segment";
+import { isValidPath, moveInDirection } from "@/utils/segment";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Grid from "../../components/Grid";
 import "./Play.css";
@@ -22,6 +22,13 @@ const Play: React.FC = () => {
     setPath([start]);
     setRedoStack([]);
   }, [start, setPath]);
+
+  useEffect(() => {
+    if (!isValidPath(path, board)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      reset();
+    }
+  }, [board, path, reset]);
 
   const move = useCallback(
     (direction: Direction, iteration: number = 1) => {
