@@ -35,6 +35,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # ✅ Safe check: verify that the Firebase Project ID is loaded
+      - name: Verify Firebase Project ID
+        run: |
+          if [ -z "$NEXT_PUBLIC_FIREBASE_PROJECT_ID" ]; then
+            echo "❌ Firebase Project ID is NOT set!"
+            exit 1
+          else
+            echo "✅ Firebase Project ID is set (length: ${#NEXT_PUBLIC_FIREBASE_PROJECT_ID})"
+          fi
+
       - name: Build project
         run: npm run build
 
@@ -43,9 +53,6 @@ jobs:
         with:
           name: github-pages
           path: out
-
-      - name: Check environment variable
-        run: echo "Firebase Project ID is: $NEXT_PUBLIC_FIREBASE_PROJECT_ID"
 
   deploy:
     environment:
@@ -58,6 +65,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      
-      - name: Check environment variable
-        run: echo "Firebase Project ID is: $NEXT_PUBLIC_FIREBASE_PROJECT_ID"
