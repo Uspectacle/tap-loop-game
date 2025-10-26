@@ -30,13 +30,10 @@ const Play: React.FC = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setJustSavedHighscore(false);
-    console.log(false);
   }, [path]);
 
   useEffect(() => {
-    const best = getBestScore(board);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setBestScore(best);
+    getBestScore(board).then((best) => setBestScore(best));
   }, [board]);
 
   // Check if we should save when path is finished
@@ -48,7 +45,6 @@ const Play: React.FC = () => {
         saveBestScore(board, path);
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setBestScore(currentLength);
-        console.log(true);
         setJustSavedHighscore(true);
       }
     }
@@ -198,7 +194,9 @@ const Play: React.FC = () => {
           Undo
         </button>
         <div className="score-display">
-          <p className={finished ? "highlight" : ""}>Steps: {path.length - 1}</p>
+          <p className={finished ? "highlight" : ""}>
+            Steps: {path.length - 1}
+          </p>
           {finished && isTiedScore(path.length - 1, bestScore) ? (
             justSavedHighscore ? (
               <p className="celebration new-highscore">🎉 New Highscore! 🎉</p>

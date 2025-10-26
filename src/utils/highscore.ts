@@ -1,5 +1,7 @@
 import { Board, Path } from "@/types";
 import { encodeBoard, encodePath, decodePath } from "./encoder";
+import { ref, get, set } from "firebase/database";
+import { db } from "@/lib/firebase";
 
 export interface HighscoreEntry {
   boardKey: string;
@@ -7,72 +9,57 @@ export interface HighscoreEntry {
   pathLength: number;
 }
 
-// Abstraction layer - swap implementation here later for shared DB
 class HighscoreService {
-  private storageKey = "tap_loop_highscore";
+  private basePath = "highscore";
 
-  private getAllScores(): Record<string, string> {
-    try {
-      const data = localStorage.getItem(this.storageKey);
-      return data ? JSON.parse(data) : {};
-    } catch {
-      return {};
-    }
-  }
-
-  private saveAllScores(scores: Record<string, string>): void {
-    try {
-      localStorage.setItem(this.storageKey, JSON.stringify(scores));
-    } catch (error) {
-      console.error("Failed to save highscore:", error);
-    }
-  }
-
-  getBestPath(board: Board): Path | null {
+  async getBestPath(board: Board): Promise<Path | null> {
     const boardKey = encodeBoard(board);
-    const scores = this.getAllScores();
-    const pathKey = scores[boardKey];
-
-    if (!pathKey) return null;
+    const pathRef = ref(db, `${this.basePath}/${boardKey}`);
 
     try {
+      const snapshot = await get(pathRef);
+      if (!snapshot.exists()) return null;
+      const pathKey = snapshot.val();
       return decodePath(pathKey, board);
-    } catch {
+    } catch (error) {
+      console.error("Failed to load highscore:", error);
       return null;
     }
   }
 
-  saveBestPath(board: Board, path: Path): boolean {
+  async saveBestPath(board: Board, path: Path): Promise<boolean> {
     const boardKey = encodeBoard(board);
     const pathKey = encodePath(path);
-    const scores = this.getAllScores();
+    const pathRef = ref(db, `${this.basePath}/${boardKey}`);
 
-    scores[boardKey] = pathKey;
-    this.saveAllScores(scores);
-    return true;
+    try {
+      await set(pathRef, pathKey);
+      return true;
+    } catch (error) {
+      console.error("Failed to save highscore:", error);
+      return false;
+    }
   }
 
-  getBestPathLength(board: Board): number | null {
-    const bestPath = this.getBestPath(board);
+  async getBestPathLength(board: Board): Promise<number | null> {
+    const bestPath = await this.getBestPath(board);
     return bestPath ? bestPath.length - 1 : null;
   }
 }
 
-// Export singleton instance
 export const highscoreService = new HighscoreService();
 
-// Utility functions for components
-export const getBestScore = (board: Board): number | null => {
-  return highscoreService.getBestPathLength(board);
-};
+// Utility wrappers
+export const getBestScore = async (board: Board): Promise<number | null> =>
+  highscoreService.getBestPathLength(board);
 
-export const saveBestScore = (board: Board, path: Path): void => {
-  highscoreService.saveBestPath(board, path);
-};
+export const saveBestScore = async (
+  board: Board,
+  path: Path
+): Promise<boolean> => highscoreService.saveBestPath(board, path);
 
-export const getBestScorePath = (board: Board): Path | null => {
-  return highscoreService.getBestPath(board);
-};
+export const getBestScorePath = async (board: Board): Promise<Path | null> =>
+  highscoreService.getBestPath(board);
 
 export const shouldSaveScore = (
   currentPathLength: number,
