@@ -1,10 +1,12 @@
+import { GameProvider } from "@/components/GameProvider";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Metadata } from "next";
 import "./Layout.css";
-import { GameProvider } from "@/components/GameProvider";
 
 export const metadata: Metadata = {
   title: "Tap Loop Game",
-  description: "Find the smallest loop taping every cells",
+  description: "Find the smallest loop taping every block",
   manifest: "manifest.json",
   icons: "logo.svg",
   robots: "robots.txt",
@@ -20,7 +22,17 @@ export default function RootLayout({
           <div className="layout">
             <main className="main">
               <h1>Tap Loop Game</h1>
-              <p>Find the smallest loop taping every cells</p>
+              <p className="description">
+                Find the smallest loop taping every block.{" "}
+                <a
+                  href="https://github.com/Uspectacle/tap-loop-game"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="github-link"
+                >
+                  Learn more on <FontAwesomeIcon icon={faGithub} /> Github
+                </a>
+              </p>
               {children}
             </main>
           </div>

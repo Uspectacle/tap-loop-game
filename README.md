@@ -1,6 +1,6 @@
-# Tap Loop Game
+# 🎮 Tap Loop Game
 
-A grid-based path-drawing game where you need to find the loops taping every cells.
+A **grid-based path-drawing puzzle game** where you must create loops that pass through every block!
 
 ![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.7.4-3178C6?logo=typescript)
@@ -9,49 +9,103 @@ A grid-based path-drawing game where you need to find the loops taping every cel
 ---
 
 <p align="center">
-  <a href="https://uspectacle.github.io/tap-loop-game/" target="_blank">
-    <strong>✨ Click here to try your best ✨</strong>
+  <a href="https://uspectacle.github.io/tap-loop-game/play" target="_blank">
+    <strong>✨ Click Here To Play Tap Loop Game ✨</strong>
   </a>
 </p>
 
 ---
 
-## 🎯 How to Play
+> 🧠 _AI assistance was used during this project._
 
-1. Use arrow keys to move the player (triangle)
-2. Create a path that touches all cells
-3. The path will paint adjacent cells as you move
-4. Try to find the most efficient path to paint all cells
-5. Use the undo button to correct mistakes
-6. Reset the game at any time to start over
+---
 
-## 🚀 Getting Started
+## 🎯 Gameplay Overview
 
-1. Clone the repo:
+You are the **blue arrow**, starting at the **blue dot**.
+Your goal: **tap all activated blocks** and **return to your starting position**, forming a complete loop.
+
+You can walk over your **own path**, but not over **obstacles**.
+
+### Controls
+
+Move the player using any of the following methods:
+
+- 🖱️ **Click/Touch** on the desired destination
+- ⌨️ **Arrow keys** to move
+- 📱 **Swipe** in the desired direction
+
+Use **Undo**, **Redo**, or **Reset** at any time to retry or adjust your path.
+
+---
+
+## 🧩 Board Editor
+
+Customize the level directly from the editor:
+
+- 🎯 **Move the start** by dragging the blue dot
+- 🔲 **Activate/deactivate a block** by clicking on it
+- 🚧 **Toggle an obstacle** by clicking between blocks
+- ➕➖ **Add or remove** rows and columns using the `+ / -` buttons
+
+---
+
+## 🚀 Getting Started (Development)
+
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**
 
    ```bash
    git clone https://github.com/Uspectacle/tap-loop-game.git
    cd tap-loop-game
    ```
 
-2. Install dependencies:
+2. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-3. Start the development server:
+3. **Start the development server**
 
    ```bash
    npm run dev
    ```
 
-4. Open http://localhost:3000 in your browser
+4. Open your browser and navigate to **[http://localhost:3000](http://localhost:3000)**
+
+---
+
+### 🔥 Firebase Highscore Setup (Optional)
+
+To enable the online highscore database, create a `.local.env` file and fill in your Firebase credentials:
+
+```
+NEXT_PUBLIC_FIREBASE_API_KEY="xxx"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="xxx"
+NEXT_PUBLIC_FIREBASE_DATABASE_URL="xxx"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="xxx"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="xxx"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="xxx"
+NEXT_PUBLIC_FIREBASE_APP_ID="xxx"
+```
+
+---
 
 ## 🤝 Contributing
 
-Feel like improving something? Go ahead! Open an issue or submit a PR - all contributions are welcome.
+Contributions are welcome!
+If you find a bug, want to suggest a feature, or improve the code:
+
+- Open an **issue**
+- Submit a **pull request**
+
+Let’s make the game better together 💪
+
+---
 
 ## 📜 License
 
-GNU General Public License v3.0 - See [LICENSE](LICENSE) file for details.
+This project is licensed under the **GNU General Public License v3.0**.
+See the [LICENSE](LICENSE) file for details.

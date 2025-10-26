@@ -11,14 +11,12 @@ completedColumns:
 
 ## Todo
 
-- [link-to-github-and-redo-readme](tasks/link-to-github-and-redo-readme.md)
-
 ## In Progress
-
-- [save-highscore-in-db](tasks/save-highscore-in-db.md)
 
 ## Done
 
+- [link-to-github-and-redo-readme](tasks/link-to-github-and-redo-readme.md)
+- [save-highscore-in-db](tasks/save-highscore-in-db.md)
 - [display-highscore](tasks/display-highscore.md)
 - [make-a-review-mode](tasks/make-a-review-mode.md)
 - [make-an-edit-mode](tasks/make-an-edit-mode.md)
