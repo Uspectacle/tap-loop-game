@@ -173,7 +173,10 @@ const Play: React.FC = () => {
 
     const boardKey = encodeBoard(board);
     const pathKey = encodePath(path);
-    const url = `/play?b=${boardKey}&p=${pathKey}`;
+    const url = new URL(window.location.href);
+    url.searchParams.set("b", boardKey);
+    url.searchParams.set("p", pathKey);
+
     window.open(url, "_blank");
   };
 
