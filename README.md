@@ -9,7 +9,7 @@ A **grid-based path-drawing puzzle game** where you must create loops that pass 
 ---
 
 <p align="center">
-  <a href="https://uspectacle.github.io/tap-loop-game/play" target="_blank">
+  <a href="https://uspectacle.github.io/tap-loop-game/play?p=37&b=67%7E37%7E56-06-00-50%7E05_06-04_05-03_04-02_03-01_02-10_20-20_30-30_40-40_50-61_62-62_63-63_64-64_65-65_66-00_01-00_10-50_60-60_61-66_67-06_07" target="_blank">
     <strong>✨ Click Here To Play Tap Loop Game ✨</strong>
   </a>
 </p>
