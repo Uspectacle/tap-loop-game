@@ -81,6 +81,6 @@ export const isTiedScore = (
   currentPathLength: number,
   bestScore: number | null
 ): boolean => {
-  if (bestScore === null) return false;
+  if (bestScore === null) return true;
   return currentPathLength === bestScore;
 };
