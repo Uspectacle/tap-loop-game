@@ -24,6 +24,7 @@ const Play: React.FC = () => {
 
   const [redoStack, setRedoStack] = useState<Path>([]);
   const [bestScore, setBestScore] = useState<number | null>(null);
+  const [bestScoreFetched, setBestScoreFetched] = useState(false);
   const [justSavedHighscore, setJustSavedHighscore] = useState(false);
   const touchStart = useRef<Position | null>(null);
 
@@ -33,7 +34,12 @@ const Play: React.FC = () => {
   }, [path]);
 
   useEffect(() => {
-    getBestScore(board).then((best) => setBestScore(best));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setBestScoreFetched(false);
+    getBestScore(board).then((best) => {
+      setBestScore(best);
+      setBestScoreFetched(true);
+    });
   }, [board]);
 
   // Check if we should save when path is finished
@@ -41,14 +47,14 @@ const Play: React.FC = () => {
     if (finished && !justSavedHighscore) {
       const currentLength = path.length - 1;
 
-      if (isNewHighscore(currentLength, bestScore)) {
+      if (bestScoreFetched && isNewHighscore(currentLength, bestScore)) {
         saveBestScore(board, path);
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setBestScore(currentLength);
         setJustSavedHighscore(true);
       }
     }
-  }, [finished, path, bestScore, board, justSavedHighscore]);
+  }, [finished, path, bestScore, board, justSavedHighscore, bestScoreFetched]);
 
   const reset = useCallback(() => {
     setPath([start]);
